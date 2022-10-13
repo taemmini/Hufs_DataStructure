@@ -40,7 +40,7 @@ class LinkedQueue:
             node = node.next
         print()
 
-# Test Dirve
+# Test Dirve by professor
 def testLinkedQueue():
     print('연결된 구조의 큐 구현\n')
     Queue = LinkedQueue()
