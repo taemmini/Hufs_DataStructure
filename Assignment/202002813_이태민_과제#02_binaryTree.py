@@ -70,42 +70,55 @@ class TreeNode:
             right = self.right.size()
             return left + right
 
-    def preorder(self):
+    def pre_order(self):
         traversal = []
         traversal.append(self.data)
         if self.left:
-            traversal += self.left.inorder()
+            traversal += self.left.pre_order()
         if self.right:
-            traversal += self.right.inorder()
+            traversal += self.right.pre_order()
         return traversal
 
-    def inorder(self):
+    def in_order(self):
         traversal = []
         if self.left:
-            traversal += self.left.inorder()
+            traversal += self.left.in_order()
         traversal.append(self.data)
         if self.right:
-            traversal += self.right.inorder()
+            traversal += self.right.in_order()
         return traversal
 
-    def postorder(self):
+    def post_order(self):
         traversal = []
         if self.left:
-            traversal += self.left.inorder()
+            traversal += self.left.post_order()
         if self.right:
-            traversal += self.right.inorder()
+            traversal += self.right.post_order()
         traversal.append(self.data)
         return traversal
+
+    def level_order(self):
+        queue = CircularQueue()
+        queue.EnQueue(self)
+        while not queue.isEmpty():
+            root = queue.DeQueue()
+            if root is not None:
+                print(root.data, end=' ')
+                queue.EnQueue(self.left())
+                queue.EnQueue(self.right())
 
     def levelorder(self):
+        if self.data == None:
+            return
         queue = CircularQueue()
         queue.EnQueue(self.data)
         while not queue.isEmpty():
-            n = queue.DeQueue()
-            if n is not None:
-                print(n.data, end=' ')
-                queue.EnQueue(n.left)
-                queue.EnQueue(n.right)
+            node = queue.EnQueue(self.data)
+            if node == None:
+                continue
+            print(node.data)
+            queue.EnQueue(node.left)
+            queue.EnQueue(node.right)
 
 
 class BinaryTree:
@@ -130,27 +143,27 @@ class BinaryTree:
         else:
             return 0
 
-    def preorder(self):
+    def pre_order(self):
         if self.root:
-            return self.root.preorder()
+            return self.root.pre_order()
         else:
             return []
 
-    def inorder(self):
+    def in_order(self):
         if self.root:
-            return self.root.inorder()
+            return self.root.in_order()
         else:
             return []
 
-    def postorder(self):
+    def post_order(self):
         if self.root:
-            return self.root.postorder()
+            return self.root.post_order()
         else:
             return []
 
-    def levelorder(self):
+    def level_order(self):
         if self.root:
-            return self.root.levelorder()
+            return self.root.level_order()
         else:
             return []
 
@@ -164,11 +177,14 @@ c = TreeNode('C', f, None)
 root = TreeNode('A', b, c)
 Tree = BinaryTree(root)
 
-print(f' In-Order : {Tree.inorder()}')
-print(f'Pre-Order : {Tree.preorder()}')
-print(f'Post-Order : {Tree.postorder()}')
-print(f'levelorder : {Tree.levelorder()}')
 
+print("트리의 순회 4가지")
+print(f'In-Order : {Tree.in_order()}')
+print(f'Pre-Order : {Tree.pre_order()}')
+print(f'Post-Order : {Tree.post_order()}')
+print(f'Level-order : {Tree.level_order()}')
+
+print("\n트리의 구성요소 판단")
 print(f'노드의 개수 = {Tree.size()}개')
 print(f'트리의 높이 = {Tree.depth()}')
 print(f'단말의 개수 = {Tree.leaf()}개')
