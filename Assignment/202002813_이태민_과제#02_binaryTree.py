@@ -154,23 +154,49 @@ class BinaryTree:
             return []
 
 
-# Test
-d = TreeNode('D', None, None)
-e = TreeNode('E', None, None)
-b = TreeNode('B', d, e)
-f = TreeNode('F', None, None)
-c = TreeNode('C', f, None)
-root = TreeNode('A', b, c)
-Tree = BinaryTree(root)
+# Test1
+d = TreeNode("D", None, None)
+b = TreeNode("B", d, None)
+g = TreeNode("G", None, None)
+h = TreeNode("H", None, None)
+e = TreeNode("E", g, h)
+f = TreeNode("F", None, None)
+c = TreeNode("C", e, f)
+root1 = TreeNode("A", b, c)
 
+Tree1 = BinaryTree(root1)
 
-print("트리의 순회 4가지")
-print(f'In-Order : {Tree.in_order()}')
-print(f'Pre-Order : {Tree.pre_order()}')
-print(f'Post-Order : {Tree.post_order()}')
-print(f'Level-order : {Tree.level_order()}')
+print("첫번째 트리의 순회 4가지")
+print(f'In-Order : {Tree1.in_order()}')
+print(f'Pre-Order : {Tree1.pre_order()}')
+print(f'Post-Order : {Tree1.post_order()}')
+print(f'Level-order : {Tree1.level_order()}')
 
-print("\n트리의 구성요소 판단")
-print(f'노드의 개수 = {Tree.size()}개')
-print(f'트리의 높이 = {Tree.depth()}')
-print(f'단말의 개수 = {Tree.leaf()}개')
+print("\n첫번째 트리의 구성요소 판단")
+print(f'노드의 개수 = {Tree1.size()}개')
+print(f'트리의 높이 = {Tree1.depth()}')
+print(f'단말의 개수 = {Tree1.leaf()}개')
+
+# Test2
+a = TreeNode("A", None, None)
+b = TreeNode("B", None, None)
+divide1 = TreeNode("/", a, b)
+c = TreeNode("C", None, None)
+multi1 = TreeNode("*", divide1, c)
+d = TreeNode("D", None, None)
+multi2 = TreeNode("*", multi1, d)
+e = TreeNode("E", None, None)
+root2 = TreeNode("+", multi2, e)
+
+Tree2 = BinaryTree(root2)
+
+print("\n두번째 트리의 순회 4가지")
+print(f'In-Order : {Tree2.in_order()}')
+print(f'Pre-Order : {Tree2.pre_order()}')
+print(f'Post-Order : {Tree2.post_order()}')
+print(f'Level-order : {Tree2.level_order()}')
+
+print("\n두번째 트리의 구성요소 판단")
+print(f'노드의 개수 = {Tree2.size()}개')
+print(f'트리의 높이 = {Tree2.depth()}')
+print(f'단말의 개수 = {Tree2.leaf()}개')
