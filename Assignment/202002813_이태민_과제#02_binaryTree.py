@@ -1,33 +1,19 @@
-class ListNode:
-    def __init__(self, data, next):
-        self.data = data
-        self.next = next
+class ArrayQueue:
 
-
-MAX_QSIZE = 10
-
-
-class CircularQueue:
     def __init__(self):
-        self.front = 0
-        self.rear = 0
-        self.items = [None] * MAX_QSIZE
+        self.data = []
+
+    def size(self):
+        return len(self.data)
 
     def isEmpty(self):
-        return self.front == self.rear
+        return self.size() == 0
 
-    def isFull(self):
-        return self.front == (self.rear+1) % MAX_QSIZE
+    def enqueue(self, item):
+        self.data.append(item)
 
-    def EnQueue(self, item):
-        if not self.isFull():
-            self.rear = (self.rear+1) % MAX_QSIZE
-            self.items[self.rear] = item
-
-    def DeQueue(self):
-        if not self.isEmpty():
-            self.front = (self.front+1) % MAX_QSIZE
-            return self.items[self.front]
+    def dequeue(self):
+        return self.data.pop(0)
 
 
 class TreeNode:
@@ -70,6 +56,7 @@ class TreeNode:
             right = self.right.size()
             return left + right
 
+# 전위 순회
     def pre_order(self):
         traversal = []
         traversal.append(self.data)
@@ -79,6 +66,7 @@ class TreeNode:
             traversal += self.right.pre_order()
         return traversal
 
+# 중위 순회
     def in_order(self):
         traversal = []
         if self.left:
@@ -88,6 +76,7 @@ class TreeNode:
             traversal += self.right.in_order()
         return traversal
 
+# 후위 순회
     def post_order(self):
         traversal = []
         if self.left:
@@ -97,28 +86,25 @@ class TreeNode:
         traversal.append(self.data)
         return traversal
 
+# 레벨 순회
     def level_order(self):
-        queue = CircularQueue()
-        queue.EnQueue(self)
-        while not queue.isEmpty():
-            root = queue.DeQueue()
-            if root is not None:
-                print(root.data, end=' ')
-                queue.EnQueue(self.left())
-                queue.EnQueue(self.right())
+        traversal = []
+        queue = ArrayQueue()
 
-    def levelorder(self):
-        if self.data == None:
-            return
-        queue = CircularQueue()
-        queue.EnQueue(self.data)
+        if self.data:
+            queue.enqueue(self)
+
         while not queue.isEmpty():
-            node = queue.EnQueue(self.data)
-            if node == None:
-                continue
-            print(node.data)
-            queue.EnQueue(node.left)
-            queue.EnQueue(node.right)
+            node = queue.dequeue()
+            traversal.append(node.data)
+
+            if node.left:
+                queue.enqueue(node.left)
+
+            if node.right:
+                queue.enqueue(node.right)
+
+        return traversal
 
 
 class BinaryTree:
